@@ -1,5 +1,6 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import { getDAppClientInstance } from "@airgap/beacon-dapp";
 
 export default function Home() {
   return (
@@ -8,6 +9,18 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <button
+        onClick={async () => {
+          const dAppClient = getDAppClientInstance({
+            name: "Next.js Example",
+          });
+          const response = await dAppClient.requestPermissions();
+          console.log(response);
+        }}
+      >
+        Connect Wallet
+      </button>
 
       <main>
         <h1 className={styles.title}>
@@ -55,7 +68,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
         </a>
       </footer>
@@ -111,5 +124,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }
